@@ -1,0 +1,63 @@
+{
+  "user": {
+    "id": "u1",
+    "name": "Mr. David Scott",
+    "role": "English Teacher",
+    "avatarUrl": "assets/images/avatar.png"
+  },
+  "dashboardStats": {
+    "activeClasses": 4,
+    "archivedClasses": 6,
+    "totalStudents": 102,
+    "pendingReview": 17,
+    "gradedThisWeek": 31
+  },
+  "classes": [
+    {
+      "id": "c1",
+      "title": "Creative Writing 101",
+      "description": "Introduction to creative writing techniques and storytelling",
+      "status": "active",
+      "studentsCount": 41,
+      "activeAssignments": 4,
+      "term": "Fall 2025",
+      "gradeLevel": "Grade 11",
+      "fingerprintsSubmitted": 38
+    },
+    {
+      "id": "c2",
+      "title": "English Foundations 1H",
+      "description": "A foundational course in analytical writing, composition, and literary expression.",
+      "status": "active",
+      "studentsCount": 41,
+      "activeAssignments": 2,
+      "term": "Fall 2025",
+      "gradeLevel": "Grade 9",
+      "fingerprintsSubmitted": 41
+    }
+  ],
+  "assignments": [
+    {
+      "id": "a1",
+      "title": "Author Spotlight: George Orwell",
+      "description": "Writing with clarity, conviction, and political purpose",
+      "status": "active",
+      "courseName": "Creative Writing 101",
+      "submitted": 30,
+      "totalStudents": 41,
+      "gradeLevel": "Grade 11",
+      "dueDate": "2025-09-25T23:59:00"
+    },
+    {
+      "id": "a2",
+      "title": "To Kill a Mockingbird Human Nature Essay",
+      "description": "Analyze justice, bias, and conscience in To Kill a Mockingbird",
+      "status": "active",
+      "courseName": "English Foundations 1H",
+      "submitted": 24,
+      "totalStudents": 41,
+      "gradeLevel": "Grade 9",
+      "dueDate": "2025-09-27T10:30:00"
+    }
+  ]
+}
