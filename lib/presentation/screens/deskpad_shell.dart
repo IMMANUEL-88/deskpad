@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/navigation_cubit.dart';
+import '../../core/theme/app_theme.dart';
 import '../widgets/side_menu.dart';
-// Placeholders for future screens
-// import 'dashboard_screen.dart'; // We will create this in Day 4
-// import 'classes_screen.dart';   // We will create this in Day 5
+import '../widgets/top_header.dart';
 
 class DeskpadShell extends StatelessWidget {
   const DeskpadShell({super.key});
@@ -21,53 +20,111 @@ class DeskpadShell extends StatelessWidget {
 class _DeskpadShellView extends StatelessWidget {
   const _DeskpadShellView();
 
+  // Helper to get the title based on the index
+  String _getPageTitle(int index) {
+    switch (index) {
+      case 0: return 'Dashboard';
+      case 1: return 'Classes';
+      case 2: return 'Writing Fingerprint';
+      case 3: return 'Assignments';
+      case 4: return 'Grading';
+      case 5: return 'Calendar';
+      case 6: return 'Analytics';
+      case 7: return 'Settings';
+      case 8: return 'Help';
+      default: return 'Deskpad';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final selectedIndex = context.watch<NavigationCubit>().state;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Desktop Layout
-        if (constraints.maxWidth > 900) {
-          return Scaffold(
-            body: Row(
+    // Define the same gradient used in SideMenu
+    const gradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xffe5cff5),
+        Color(0xFFb3c6e6), 
+      ],
+    );
+
+    return Scaffold(
+      backgroundColor: AppTheme.secondaryColor,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // DESKTOP LAYOUT (> 900px)
+          if (constraints.maxWidth > 900) {
+            return Column(
               children: [
-                const SideMenu(),
+                const TopHeader(),
                 Expanded(
-                  child: _getPage(selectedIndex),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SideMenu(),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 24, bottom: 24),
+                          child: _getPage(selectedIndex),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-          );
-        } 
-        
-        // Mobile/Tablet Layout
-        else {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.black87),
-              title: const Text("Deskpad", style: TextStyle(color: Colors.black87)),
-            ),
-            drawer: const Drawer(
-              child: SideMenu(), // Reusing the same sidebar widget
-            ),
-            body: _getPage(selectedIndex),
-          );
-        }
-      },
+            );
+          } 
+          
+          // MOBILE LAYOUT (< 900px)
+          else {
+            return Scaffold(
+              appBar: AppBar(
+                // 1. Remove flat background color
+                backgroundColor: Colors.transparent, 
+                elevation: 0,
+                
+                // 2. Use flexibleSpace to apply the gradient
+                flexibleSpace: Container(
+                  decoration: const BoxDecoration(
+                    gradient: gradient,
+                  ),
+                ),
+                
+                // 3. Dynamic Title based on selection
+                title: Text(
+                  _getPageTitle(selectedIndex),
+                  style: const TextStyle(
+                    color: Color(0xFF1D2939), // Dark text for contrast
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                
+                // Ensure the hamburger menu icon is dark
+                iconTheme: const IconThemeData(color: Color(0xFF1D2939)),
+              ),
+              drawer: const Drawer(
+                // Pass isDrawer: true for full width/no margins
+                child: SideMenu(isDrawer: true), 
+              ),
+              body: _getPage(selectedIndex),
+            );
+          }
+        },
+      ),
     );
   }
 
   Widget _getPage(int index) {
-    switch (index) {
-      case 0:
-        return const Center(child: Text("Dashboard (Coming Day 4)")); 
-      case 1:
-        return const Center(child: Text("Classes (Coming Day 5)"));
-      default:
-        return Center(child: Text("Page Index: $index"));
-    }
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Center(child: Text("Page Index: $index")),
+    );
   }
 }
