@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../logic/auth_bloc.dart';
-import '../../core/theme/app_theme.dart';
 import 'deskpad_shell.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -42,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                     ), // Very light periwinkle background inside the border
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.blue.withValues(alpha:0.3),
                       width: 1,
                     ), // The dotted/dashed line implementation
                   ),
