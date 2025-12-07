@@ -1,4 +1,9 @@
+import 'package:deskpad/presentation/screens/assignments_screen.dart';
+import 'package:deskpad/presentation/screens/calendar_screen.dart';
+import 'package:deskpad/presentation/screens/classes_screen.dart';
 import 'package:deskpad/presentation/screens/dashboard_screen.dart';
+import 'package:deskpad/presentation/screens/grading_screen.dart';
+import 'package:deskpad/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/navigation_cubit.dart';
@@ -126,19 +131,19 @@ class _DeskpadShellView extends StatelessWidget {
       case 0:
         return const DashboardScreen();
       case 1:
-        return const Center(child: Text("Classes Page"));
+        return const ClassesScreen();
       case 2:
         return const Center(child: Text("Writing Fingerprint Page"));
       case 3:
-        return const Center(child: Text("Assignments Page"));
+        return const AssignmentsScreen();
       case 4:
-        return const Center(child: Text("Grading Page"));
+        return const GradingScreen();
       case 5:
-        return const Center(child: Text("Calendar Page"));
+        return const CalendarScreen();
       case 6:
         return const Center(child: Text("Analytics Page"));
       case 7:
-        return const Center(child: Text("Settings Page"));
+        return const SettingsScreen();
       case 8:
         return const Center(child: Text("Help Page"));
       default:

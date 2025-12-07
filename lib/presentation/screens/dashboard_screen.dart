@@ -76,54 +76,18 @@ class DashboardScreen extends StatelessWidget {
                         ],
                       );
 
-                      Widget actionButton = Container(
-                        height: 36,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFF2350b3),
-                              Color(0xFFc86de5),
-                            ], // Purple Gradient
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            18,
-                          ), // Rounded caps
-                        ),
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.add, size: 18),
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                          ),
-                          label: Text(
-                            "Create Assignment",
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      );
                       // Switch Layout based on width
                       if (isMobile) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             welcomeText,
-                            const SizedBox(height: 16),
-                            actionButton, // Full width button on mobile
                           ],
                         );
                       } else {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [welcomeText, actionButton],
+                          children: [welcomeText],
                         );
                       }
                     },
@@ -209,12 +173,12 @@ class DashboardScreen extends StatelessWidget {
                             ? Expanded(
                                 flex: 2,
                                 child: SizedBox(
-                                  height: 400,
+                                  height: 450,
                                   child: const AiUsageChart(),
                                 ),
                               )
                             : SizedBox(
-                                height: 400,
+                                height: 500,
                                 child: const AiUsageChart(),
                               ),
 

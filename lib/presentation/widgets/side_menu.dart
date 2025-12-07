@@ -17,41 +17,37 @@ class SideMenu extends StatelessWidget {
     const gradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: [
-        Color(0xffe5cff5),
-        Color(0xFFb3c6e6),
-      ],
+      colors: [Color(0xffe5cff5), Color(0xFFb3c6e6)],
     );
 
     return Container(
       // On Mobile (Drawer), fill the available width.
       // On Desktop, stick to the fixed 260px width.
       width: isDrawer ? double.infinity : 260,
-      
+
       // LOGIC: If in Drawer, remove margins to fill the panel.
       // If Desktop, keep the floating margin.
-      margin: isDrawer 
-          ? EdgeInsets.zero 
+      margin: isDrawer
+          ? EdgeInsets.zero
           : const EdgeInsets.fromLTRB(24, 0, 24, 24),
-      
+
       decoration: BoxDecoration(
         gradient: gradient,
         // LOGIC: If in Drawer, we don't need rounded corners on the left/outer edges.
-        borderRadius: isDrawer 
-            ? BorderRadius.zero 
-            : BorderRadius.circular(24),
+        borderRadius: isDrawer ? BorderRadius.zero : BorderRadius.circular(24),
         // Optional: Remove shadow in drawer mode as the Drawer itself usually has elevation
-        boxShadow: isDrawer 
-            ? [] 
+        boxShadow: isDrawer
+            ? []
             : [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha:0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
               ],
       ),
-      child: SafeArea( // Added SafeArea for mobile notches
+      child: SafeArea(
+        // Added SafeArea for mobile notches
         bottom: false, // Don't need bottom safe area usually
         child: Column(
           children: [
@@ -61,13 +57,54 @@ class SideMenu extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
-                  _SideMenuItem(index: 0, label: 'Dashboard', icon: Icons.speed),
-                  _SideMenuItem(index: 1, label: 'Classes', icon: Icons.people_alt_outlined),
-                  _SideMenuItem(index: 2, label: 'Writing Fingerprint', icon: Icons.fingerprint),
-                  _SideMenuItem(index: 3, label: 'Assignments', icon: Icons.assignment_outlined),
-                  _SideMenuItem(index: 4, label: 'Grading', icon: Icons.grade_outlined),
-                  _SideMenuItem(index: 5, label: 'Calendar', icon: Icons.calendar_today_outlined),
-                  _SideMenuItem(index: 6, label: 'Analytics', icon: Icons.analytics_outlined),
+                  isDrawer
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            'Deskpad',
+                            style: GoogleFonts.inter(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF9c40b9),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                  _SideMenuItem(
+                    index: 0,
+                    label: 'Dashboard',
+                    icon: Icons.speed,
+                  ),
+                  _SideMenuItem(
+                    index: 1,
+                    label: 'Classes',
+                    icon: Icons.people_alt_outlined,
+                  ),
+                  _SideMenuItem(
+                    index: 2,
+                    label: 'Writing Fingerprint',
+                    icon: Icons.fingerprint,
+                  ),
+                  _SideMenuItem(
+                    index: 3,
+                    label: 'Assignments',
+                    icon: Icons.assignment_outlined,
+                  ),
+                  _SideMenuItem(
+                    index: 4,
+                    label: 'Grading',
+                    icon: Icons.grade_outlined,
+                  ),
+                  _SideMenuItem(
+                    index: 5,
+                    label: 'Calendar',
+                    icon: Icons.calendar_today_outlined,
+                  ),
+                  _SideMenuItem(
+                    index: 6,
+                    label: 'Analytics',
+                    icon: Icons.analytics_outlined,
+                  ),
                 ],
               ),
             ),
@@ -76,8 +113,16 @@ class SideMenu extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: Column(
                 children: [
-                  _SideMenuItem(index: 7, label: 'Settings', icon: Icons.settings_outlined),
-                  _SideMenuItem(index: 8, label: 'Help', icon: Icons.help_outline),
+                  _SideMenuItem(
+                    index: 7,
+                    label: 'Settings',
+                    icon: Icons.settings_outlined,
+                  ),
+                  _SideMenuItem(
+                    index: 8,
+                    label: 'Help',
+                    icon: Icons.help_outline,
+                  ),
                 ],
               ),
             ),
@@ -112,7 +157,8 @@ class _SideMenuItem extends StatelessWidget {
           onTap: () {
             context.read<NavigationCubit>().selectTab(index);
             // Optional: Close drawer on mobile selection
-            if (Scaffold.of(context).hasDrawer && Scaffold.of(context).isDrawerOpen) {
+            if (Scaffold.of(context).hasDrawer &&
+                Scaffold.of(context).isDrawerOpen) {
               Navigator.pop(context);
             }
           },
@@ -125,11 +171,7 @@ class _SideMenuItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  icon,
-                  size: 20,
-                  color: const Color(0xFF1D2939),
-                ),
+                Icon(icon, size: 20, color: const Color(0xFF1D2939)),
                 const SizedBox(width: 12),
                 Text(
                   label,

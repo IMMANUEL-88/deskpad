@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                     ), // Very light periwinkle background inside the border
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
-                      color: Colors.blue.withValues(alpha:0.3),
+                      color: Colors.blue.withValues(alpha: 0.3),
                       width: 1,
                     ), // The dotted/dashed line implementation
                   ),
@@ -171,15 +171,38 @@ class _LoginForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: state is AuthLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
-                          "Sign in",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                  // child: state is AuthLoading
+                  //     ? const CircularProgressIndicator(color: Colors.white)
+                  //     : const Text(
+                  //         "Sign in",
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontWeight: FontWeight.w600,
+                  //         ),
+                  //       ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Determine if we are on wide screen
+                      bool isWide = constraints.maxWidth > 900;
+                      return state is AuthLoading
+                          ? isWide
+                                ? CircularProgressIndicator(color: Colors.white)
+                                : SizedBox(
+                                    width: 22,
+                                    height: 22,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  )
+                          : const Text(
+                              "Sign in",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                    },
+                  ),
                 ),
               );
             },
